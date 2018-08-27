@@ -245,12 +245,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="TextProvider.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DllProvider.h" />
     <ClInclude Include="GlobalHeader.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="TextProvider.h" />
     <ClInclude Include="WindowHandler.h" />
   </ItemGroup>
   <ItemGroup>
