@@ -1,6 +1,7 @@
 #pragma once
 #include "GlobalHeader.h"
 #include <string.h>
+#include <string>
 #define SIZE_STR 1024
 class Converter
 {
@@ -31,6 +32,16 @@ public:
 			NULL,
 			NULL);
 		return str;
+	}
+
+	static std::wstring ToUnicodeStr(const std::string& str)
+	{
+		return std::wstring(Converter::ToUnicode(str.c_str()));
+	}
+
+	static std::string ToASCIIStr(const std::wstring& wstr)
+	{
+		return std::string(Converter::ToASCIIStr(wstr.c_str()));
 	}
 };
 
