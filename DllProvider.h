@@ -7,8 +7,8 @@ namespace Protected
 {
 	static HMODULE hDLL = LoadLibrary(NAME_LIB);
 }
-static BOOL(*GetFileById)(LPWSTR, LPWSTR, DWORD) =
-(BOOL(*)(LPWSTR, LPWSTR, DWORD))GetProcAddress(Protected::hDLL, "GetFileById");
+static BOOL(*GetFileById)(LPWSTR sourceFile, LPWSTR destFile, DWORD id) =
+(BOOL(*)(LPWSTR sourceFile, LPWSTR destFile, DWORD id))GetProcAddress(Protected::hDLL, "GetFileById");
 
 static BOOL IsDLLComponentsLoaded(VOID)
 {

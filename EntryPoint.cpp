@@ -9,7 +9,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, 
 {
 	_wsetlocale(LC_ALL, L".866");
 	Graphics::WindowHandler wh;
-	//wh.Start();
-	std::wstring ws = Text::TextProvider::getInstance()->getStrById(0);
+	wh.Start();
 	return 0;
 }

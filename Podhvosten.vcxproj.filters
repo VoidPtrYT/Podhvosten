@@ -47,6 +47,9 @@
     <ClInclude Include="TextProvider.h">
       <Filter>Text</Filter>
     </ClInclude>
+    <ClInclude Include="Converter.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Podhvosten.rc">
