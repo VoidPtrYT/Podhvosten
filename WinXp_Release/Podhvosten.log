@@ -1,0 +1,7 @@
+﻿  EntryPoint.cpp
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1193,5): warning MSB8030: The linker switch "Minimum Required Version" requires "SubSystem" to be set.  Without "SubSystem", the "Minimum Required Version" would not be passed to linker and could prevent to the output binary from running on older Operating Systems.
+  Создание кода
+  Создание кода завершено
+  All 4 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Podhvosten.vcxproj -> E:\project\Podhvosten\WinXp_Release\Podhvosten.exe
+  Podhvosten.vcxproj -> E:\project\Podhvosten\WinXp_Release\Podhvosten.pdb (Full PDB)
