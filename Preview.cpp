@@ -49,10 +49,10 @@ namespace Scenes
 				}
 				if (event.type == sf::Event::KeyPressed)
 				{
-					if (event.key.code == sf::Keyboard::F4)
+					if (event.key.code == FULLSCREEN_KEY)
 						Graphics::WindowHandler::getInstance()->ChangeStyle();
-					if (event.key.code == sf::Keyboard::Return ||
-						event.key.code == sf::Keyboard::Z)
+					if (event.key.code == ENTER ||
+						event.key.code == ENTER_ALT)
 						return true;
 				}
 			}
