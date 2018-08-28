@@ -30,28 +30,13 @@ namespace Graphics
 
 	void WindowHandler::Start(void)
 	{
-		MSG msg = { 0 };
-
-		while (GetMessage(&msg, NULL, 0, 0) &&
-			this->wnd.isOpen())
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-
-			sf::Event event;
-			while (this->wnd.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-				{
-					this->wnd.close();
-				}
-			}
-			this->wnd.display();
-		}
+		if (!Scenes::Preview::Show(this->wnd))
+			return;
 	}
 
 	void WindowHandler::ReOpenWindow(void)
 	{
+		this->wnd.close();
 		if (this->isFullScreen)
 			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Fullscreen);
 		else
@@ -62,5 +47,17 @@ namespace Graphics
 	void WindowHandler::ChangeFullScreenState(void)
 	{
 		this->isFullScreen = !this->isFullScreen;
+	}
+	void WindowHandler::ChangeStyle(void)
+	{
+		this->wnd.close();
+		isFullScreen = !isFullScreen;
+		if (isFullScreen)
+		{
+			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Fullscreen);
+		}
+		else
+			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Close);
+		this->wnd.setIcon(this->ico.getSize().x, this->ico.getSize().y, this->ico.getPixelsPtr());
 	}
 }

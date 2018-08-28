@@ -19,6 +19,9 @@
     <Filter Include="Text">
       <UniqueIdentifier>{08b4e6a8-759c-42c3-841a-0605d840c059}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\Scenes">
+      <UniqueIdentifier>{30714bd8-9dae-41cb-ac60-36d5545cfcc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="TextProvider.cpp">
       <Filter>Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Preview.cpp">
+      <Filter>Graphics\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="Converter.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Preview.h">
+      <Filter>Graphics\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,11 +4,11 @@
 #include "TextProvider.h"
 
 Text::TextProvider* Text::TextProvider::instance = nullptr;
+Graphics::WindowHandler* Graphics::WindowHandler::instance = nullptr;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pCmdLine, int nCmdShow)
 {
 	_wsetlocale(LC_ALL, L".866");
-	Graphics::WindowHandler wh;
-	wh.Start();
+	Graphics::WindowHandler::getInstance()->Start();
 	return 0;
 }
