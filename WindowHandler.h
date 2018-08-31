@@ -3,6 +3,7 @@
 #include "TextProvider.h"
 #include "Preview.h"
 #include "History.h"
+#include "Logo.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 

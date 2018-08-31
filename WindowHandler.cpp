@@ -34,11 +34,11 @@ namespace Graphics
 			return;
 		if (!Scenes::History::Show(this->wnd))
 			return;
+		Scenes::Logo::Show(this->wnd);
 	}
 
 	void WindowHandler::ReOpenWindow(void)
 	{
-		this->wnd.close();
 		if (this->isFullScreen)
 			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Fullscreen);
 		else

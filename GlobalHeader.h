@@ -31,3 +31,14 @@
 #define BIG_PAUSE 2.25f
 
 #define SLEEP_TIME 50000
+
+#define PATH_EFFECTS L"..//src//effects.dat"
+#define PATH_SPRITES L"..//src//sprites.dat"
+#define PATH_MUSIC L"..//src//music.dat"
+#define PATH_UI L"..//src//ui.dat"
+#define PATH_FONT "../src/fonts/BaseFont.ttf"
+
+#define ID_SPRITE_SOUL 5
+#define COLOR_BRAVERY sf::Color(255, 128, 0)
+
+#define AUTHOR_LOGO L"by VoidPtr"

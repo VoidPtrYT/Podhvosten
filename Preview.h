@@ -4,7 +4,6 @@
 #include <SFML\Graphics.hpp>
 #include <string>
 
-#define PATH_FONT "../src/fonts/BaseFont.ttf"
 #define EXT_RECT_POS 30.f
 #define INT_RECT_POS 35.f
 #define CNT_STR 21

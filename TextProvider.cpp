@@ -15,15 +15,16 @@ namespace Text
 		while (!feof(f))
 		{
 			fgetws(wstr, SIZE_STR, f);
-			while (wstr[wcslen(wstr) - 1] == '\r' || wstr[wcslen(wstr) - 1] == '\n')
-				wstr[wcslen(wstr) - 1] = '\0';
+			while (wstr[wcslen(wstr) - 1] == RETURN_CARET
+				|| wstr[wcslen(wstr) - 1] == NEW_STR)
+				wstr[wcslen(wstr) - 1] = ZERO_SYMB;
 			std::wstring _wstr(wstr);
 			
-			std::size_t iPos = _wstr.find('@');
+			std::size_t iPos = _wstr.find(NEW_STR_ALT);
 			while (iPos != std::wstring::npos)
 			{
-				_wstr[iPos] = '\n';
-				iPos = _wstr.find('@');
+				_wstr[iPos] = NEW_STR;
+				iPos = _wstr.find(NEW_STR_ALT);
 			}
 
 			this->text.push_back(_wstr);

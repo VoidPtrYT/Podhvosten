@@ -12,9 +12,6 @@
 #define CNT_STR_HISTORY 11
 #define CNT_IMAGES 5
 #define CNT_AUDIO 2
-#define PATH_EFFECTS L"..//src//effects.dat"
-#define PATH_SPRITES L"..//src//sprites.dat"
-#define PATH_MUSIC L"..//src//music.dat"
 
 #define START_POS_TEXT_X_HISTORY 100
 #define START_POS_TEXT_Y_HISTORY 400

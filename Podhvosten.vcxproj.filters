@@ -39,6 +39,9 @@
     <ClCompile Include="History.cpp">
       <Filter>Graphics\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Logo.cpp">
+      <Filter>Graphics\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DllProvider.h">
@@ -63,6 +66,12 @@
       <Filter>Graphics\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="History.h">
+      <Filter>Graphics\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
       <Filter>Graphics\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
