@@ -245,6 +245,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp" />
+    <ClCompile Include="History.cpp" />
     <ClCompile Include="Preview.cpp" />
     <ClCompile Include="TextProvider.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
@@ -253,6 +254,7 @@
     <ClInclude Include="Converter.h" />
     <ClInclude Include="DllProvider.h" />
     <ClInclude Include="GlobalHeader.h" />
+    <ClInclude Include="History.h" />
     <ClInclude Include="Preview.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TextProvider.h" />

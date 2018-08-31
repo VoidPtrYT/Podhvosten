@@ -32,6 +32,8 @@ namespace Graphics
 	{
 		if (!Scenes::Preview::Show(this->wnd))
 			return;
+		if (!Scenes::History::Show(this->wnd))
+			return;
 	}
 
 	void WindowHandler::ReOpenWindow(void)

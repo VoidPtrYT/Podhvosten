@@ -17,7 +17,16 @@ namespace Text
 			fgetws(wstr, SIZE_STR, f);
 			while (wstr[wcslen(wstr) - 1] == '\r' || wstr[wcslen(wstr) - 1] == '\n')
 				wstr[wcslen(wstr) - 1] = '\0';
-			this->text.push_back(std::wstring(wstr));
+			std::wstring _wstr(wstr);
+			
+			std::size_t iPos = _wstr.find('@');
+			while (iPos != std::wstring::npos)
+			{
+				_wstr[iPos] = '\n';
+				iPos = _wstr.find('@');
+			}
+
+			this->text.push_back(_wstr);
 		}
 		free(wstr);
 		fclose(f);

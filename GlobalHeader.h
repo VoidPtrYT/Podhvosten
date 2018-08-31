@@ -25,3 +25,9 @@
 #define CANCEL_ALT sf::Keyboard::X
 #define INVENTORY_KEY sf::Keyboard::C
 #define FULLSCREEN_KEY sf::Keyboard::F4
+
+#define BASE_SPEED_TEXT 0.05f
+#define BASE_SPEED_PAUSE 0.125f
+#define BIG_PAUSE 2.25f
+
+#define SLEEP_TIME 50000

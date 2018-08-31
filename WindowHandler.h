@@ -2,6 +2,7 @@
 #include "GlobalHeader.h"
 #include "TextProvider.h"
 #include "Preview.h"
+#include "History.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 

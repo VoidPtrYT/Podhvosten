@@ -36,6 +36,9 @@
     <ClCompile Include="Preview.cpp">
       <Filter>Graphics\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="History.cpp">
+      <Filter>Graphics\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DllProvider.h">
@@ -57,6 +60,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Preview.h">
+      <Filter>Graphics\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="History.h">
       <Filter>Graphics\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

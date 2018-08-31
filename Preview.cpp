@@ -44,7 +44,6 @@ namespace Scenes
 				if (event.type == sf::Event::Closed)
 				{
 					wnd.close();
-	
 					return false;
 				}
 				if (event.type == sf::Event::KeyPressed)
