@@ -94,6 +94,8 @@ namespace Scenes
 
 			if (iCurrIndexStr == wstrCurr.size() - 1)
 				fTimeNextChar = BIG_PAUSE;
+			else
+				fTimeNextChar = BASE_SPEED_TEXT;
 
 			if (clock.getElapsedTime().asSeconds() >= fTimeNextChar &&
 				!(wstrCurr.size() == iCurrIndexStr - 1 && CNT_STR_HISTORY == iIndexStr - 1))
@@ -124,10 +126,6 @@ namespace Scenes
 					click.setBuffer(samples[rand() % CNT_AUDIO]);
 					click.play();
 				}
-				if (wstrCurr[iCurrIndexStr] == ' ')
-					fTimeNextChar = BASE_SPEED_PAUSE;
-				else
-					fTimeNextChar = BASE_SPEED_TEXT;
 			}
 
 			wnd.draw(spriteHistory);
