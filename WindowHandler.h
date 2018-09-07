@@ -4,6 +4,7 @@
 #include "Preview.h"
 #include "History.h"
 #include "Logo.h"
+#include "MainMenu.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 

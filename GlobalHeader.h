@@ -41,3 +41,4 @@
 #define COLOR_BRAVERY sf::Color(255, 128, 0)
 
 #define AUTHOR_LOGO L"by VoidPtr"
+#define SOUL_SCALE 0.05f

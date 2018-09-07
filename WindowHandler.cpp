@@ -35,6 +35,9 @@ namespace Graphics
 		if (!Scenes::History::Show(this->wnd))
 			return;
 		Scenes::Logo::Show(this->wnd);
+
+		Scenes::MainMenu menu;
+		DWORD iSelectMenu = menu.ShowMainWnd(this->wnd);
 	}
 
 	void WindowHandler::ReOpenWindow(void)

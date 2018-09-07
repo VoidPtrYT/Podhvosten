@@ -1,11 +1,5 @@
-﻿  EntryPoint.cpp
-  Создание кода...
-  Компиляция...
-  WindowHandler.cpp
-  TextProvider.cpp
-  Preview.cpp
-  Logo.cpp
-  History.cpp
+﻿  WindowHandler.cpp
+  MainMenu.cpp
   Создание кода...
   Podhvosten.vcxproj -> E:\project\Podhvosten\Debug\Podhvosten.exe
   Podhvosten.vcxproj -> E:\project\Podhvosten\Debug\Podhvosten.pdb (Partial PDB)

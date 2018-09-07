@@ -42,6 +42,9 @@
     <ClCompile Include="Logo.cpp">
       <Filter>Graphics\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Graphics\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DllProvider.h">
@@ -72,6 +75,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Logo.h">
+      <Filter>Graphics\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
       <Filter>Graphics\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

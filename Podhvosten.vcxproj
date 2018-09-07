@@ -247,6 +247,7 @@
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="History.cpp" />
     <ClCompile Include="Logo.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Preview.cpp" />
     <ClCompile Include="TextProvider.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="GlobalHeader.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="Logo.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Preview.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TextProvider.h" />
