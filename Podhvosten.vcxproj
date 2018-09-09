@@ -253,7 +253,6 @@
     <ClCompile Include="WindowHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Container.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="DllProvider.h" />
     <ClInclude Include="GlobalHeader.h" />

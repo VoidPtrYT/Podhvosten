@@ -1,7 +1,6 @@
 #pragma once
 #include "GlobalHeader.h"
 #include "TextProvider.h"
-#include "Container.h"
 #include "WindowHandler.h"
 
 #define CHARTER_SIZE 32
@@ -22,9 +21,9 @@ namespace Scenes
 		sf::Sprite spriteSoul;
 	public:
 		const DWORD EXIT_CODE = 0;
-		MainMenu();
-		~MainMenu();
+		MainMenu(VOID);
+		~MainMenu(VOID);
 
-		DWORD ShowMainWnd(sf::RenderWindow& wnd);
+		DWORD ShowMainWnd(_In_ sf::RenderWindow& wnd);
 	};
 }

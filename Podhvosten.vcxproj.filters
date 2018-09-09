@@ -71,9 +71,6 @@
     <ClInclude Include="History.h">
       <Filter>Graphics\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Container.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Logo.h">
       <Filter>Graphics\Scenes</Filter>
     </ClInclude>

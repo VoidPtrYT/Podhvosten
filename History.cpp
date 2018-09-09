@@ -2,51 +2,59 @@
 
 namespace Scenes
 {
-	bool History::Show(sf::RenderWindow & wnd)
+	BOOL History::Show(sf::RenderWindow & wnd)
 	{
 		sf::Texture* images = new sf::Texture[CNT_IMAGES];
 		sf::SoundBuffer* samples = new sf::SoundBuffer[CNT_AUDIO];
 		sf::SoundBuffer music;
 		sf::Font font;
-		font.loadFromFile(PATH_FONT);
+		if (!font.loadFromFile(PATH_FONT))
+			MessageBox(NULL, ERROR_LOAD_BASE_FONT, NULL, MB_ICONERROR);
 
-		for (std::size_t i = 0; i < CNT_IMAGES; ++i)
+		LPSTR pathA = GetTmpFilePathA();
+		LPWSTR pathW = GetTmpFilePathW();
+
+		for (DWORD i = 0; i < CNT_IMAGES; ++i)
 		{
-			if (GetFileById(PATH_SPRITES, TEMPORALY_FILE_W, i))
+			if (GetFileById(PATH_SPRITES, pathW, i))
 			{
-				images[i].loadFromFile(TEMPORALY_FILE_A);
-				DeleteFile(TEMPORALY_FILE_W);
+				images[i].loadFromFile(pathA);
+				DeleteFile(pathW);
 			}
 			else
-				MessageBox(NULL, L"Can't load sprite! Try reinstall game!", NULL, MB_ICONERROR);
+				MessageBox(NULL, ERROR_LOAD_SPRITE, NULL, MB_ICONERROR);
 		}
 		for (std::size_t i = 0; i < CNT_AUDIO; ++i)
 		{
-			if (GetFileById(PATH_EFFECTS, TEMPORALY_FILE_W, i))
+			if (GetFileById(PATH_EFFECTS, pathW, i))
 			{
-				samples[i].loadFromFile(TEMPORALY_FILE_A);
-				DeleteFile(TEMPORALY_FILE_W);
+				samples[i].loadFromFile(pathA);
+				DeleteFile(pathW);
 			}
 			else
-				MessageBox(NULL, L"Can't load sound effect! Try reinstall game!", NULL, MB_ICONERROR);
+				MessageBox(NULL, ERROR_LOAD_EFFECT, NULL, MB_ICONERROR);
 		}
-		if (GetFileById(PATH_MUSIC, TEMPORALY_FILE_W, 0))
+		if (GetFileById(PATH_MUSIC, pathW, 0))
 		{
-			music.loadFromFile(TEMPORALY_FILE_A);
-			DeleteFile(TEMPORALY_FILE_W);
+			music.loadFromFile(pathA);
+			DeleteFile(pathW);
 		}
 		else
-			MessageBox(NULL, L"Can't load sound effect! Try reinstall game!", NULL, MB_ICONERROR);
+			MessageBox(NULL, ERROR_LOAD_MUSIC, NULL, MB_ICONERROR);
+
+		free(pathA);
+		free(pathW);
+
 		sf::Sound background;
 		background.setBuffer(music);
-		background.setLoop(true);
+		background.setLoop(TRUE);
 		background.play();
 		sf::Sound click;
 
-		std::size_t iIndexStr = 0;
-		std::size_t iCurrIndexStr = 0;
+		DWORD iIndexStr = 0;
+		DWORD iCurrIndexStr = 0;
 		std::wstring wstrCurr = Text::TextProvider::getInstance()->getStrById(START_STR_INDEX);
-		float fTimeNextChar = BASE_SPEED_TEXT;
+		FLOAT fTimeNextChar = BASE_SPEED_TEXT;
 
 		sf::Text text;
 		text.setFillColor(sf::Color::White);
@@ -55,18 +63,15 @@ namespace Scenes
 		text.setPosition(START_POS_TEXT_X_HISTORY, START_POS_TEXT_Y_HISTORY);
 
 		sf::Sprite spriteHistory;
+
 		spriteHistory.setTexture(images[0]);
 		spriteHistory.setPosition(POSITION_HISTORY_SPRITE);
 		spriteHistory.setScale(SIZE_HISTORY_SPRITE);
 		sf::Clock clock;
 
-		MSG msg = { 0 };
 
-		while (true)
+		while (TRUE)
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-
 			sf::sleep(sf::microseconds(SLEEP_TIME));
 
 			sf::Event event;
@@ -79,7 +84,7 @@ namespace Scenes
 					if (samples != nullptr)
 						delete[] samples;
 					wnd.close();
-					return false;
+					return FALSE;
 				}
 				if (event.type == sf::Event::KeyPressed)
 				{
@@ -87,7 +92,7 @@ namespace Scenes
 						Graphics::WindowHandler::getInstance()->ChangeStyle();
 					if (event.key.code == ENTER ||
 						event.key.code == ENTER_ALT)
-						return true;
+						return TRUE;
 				}
 			}
 			wnd.clear();
@@ -118,10 +123,11 @@ namespace Scenes
 				if (iIndexStr == CNT_STR_HISTORY)
 					continue;
 				else
-					wstrCurr = Text::TextProvider::getInstance()->getStrById(START_STR_INDEX + iIndexStr);
+					wstrCurr = Text::TextProvider::getInstance()->
+						getStrById(START_STR_INDEX + iIndexStr);
 
 				text.setString(wstrCurr.substr(0, iCurrIndexStr));
-				if (iCurrIndexStr % 3 == 0)
+				if (iCurrIndexStr % FREQUENCY_TICK_HISTORY == 0)
 				{
 					click.setBuffer(samples[rand() % CNT_AUDIO]);
 					click.play();
@@ -132,11 +138,5 @@ namespace Scenes
 			wnd.draw(text);
 			wnd.display();
 		}
-		if (images != nullptr)
-			delete[] images;
-		if (samples != nullptr)
-			delete[] samples;
-
-		return true;
 	}
 }

@@ -3,26 +3,72 @@
 namespace Scenes
 {
 
-	MainMenu::MainMenu()
+	MainMenu::MainMenu(VOID)
 	{
 		if (!this->baseFont.loadFromFile(PATH_FONT))
-			MessageBox(NULL, L"Can't load base font!", NULL, MB_ICONERROR);
-		this->spriteSoul.setTexture(Container::getInstance()->getSpritebyID(5));
-		this->spriteSoul.setColor(COLOR_BRAVERY);
+			MessageBox(NULL, ERROR_LOAD_BASE_FONT, NULL, MB_ICONERROR);
+		sf::Texture texture;
+
+		LPSTR pathA = GetTmpFilePathA();
+		LPWSTR pathW = GetTmpFilePathW();
 	}
 
 
-	MainMenu::~MainMenu()
+	MainMenu::~MainMenu(VOID)
 	{
 	}
 
-	DWORD MainMenu::ShowMainWnd(sf::RenderWindow& wnd)
+	DWORD MainMenu::ShowMainWnd(_In_ sf::RenderWindow& wnd)
 	{
+		sf::Texture texture;
+
+		LPSTR pathA = GetTmpFilePathA();
+		LPWSTR pathW = GetTmpFilePathW();
+
+		if (GetFileById(PATH_UI, pathW, 1))
+		{
+			texture.loadFromFile(pathA);
+			DeleteFile(pathW);
+		}
+		else
+			MessageBox(NULL, ERROR_LOAD_UI,
+				NULL, MB_ICONERROR);
+
 		sf::Sprite logo;
-		logo.setTexture(Container::getInstance()->getUIbyID(1));
+		logo.setTexture(texture);
 		logo.setPosition(POS_LOGO_SPRITE);
+
+		sf::SoundBuffer sb;
+
+		if (GetFileById(PATH_EFFECTS, pathW, 0))
+		{
+			sb.loadFromFile(pathA);
+			DeleteFile(pathW);
+		}
+		else
+			MessageBox(NULL, ERROR_LOAD_SPRITE,
+				NULL, MB_ICONERROR);
+
+		sf::Texture textureSoul;
+
+		if (GetFileById(PATH_SPRITES, pathW, 5))
+		{
+			textureSoul.loadFromFile(pathA);
+			DeleteFile(pathW);
+		}
+		else
+			MessageBox(NULL, ERROR_LOAD_SPRITE,
+				NULL, MB_ICONERROR);
+
+		this->spriteSoul.setTexture(textureSoul);
+		this->spriteSoul.setColor(COLOR_BRAVERY);
+
+		free(pathA);
+		free(pathW);
+
+
 		sf::Sound snd;
-		snd.setBuffer(Container::getInstance()->getSoundEffectByID(0));
+		snd.setBuffer(sb);
 
 		this->spriteSoul.setScale(SOUL_SCALE, SOUL_SCALE);
 

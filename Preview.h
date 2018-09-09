@@ -1,8 +1,8 @@
 #pragma once
+#include <string>
+#include <SFML\Graphics.hpp>
 #include "GlobalHeader.h"
 #include "WindowHandler.h"
-#include <SFML\Graphics.hpp>
-#include <string>
 
 #define EXT_RECT_POS 30.f
 #define INT_RECT_POS 35.f
@@ -41,8 +41,8 @@ namespace Scenes
 	class Preview
 	{
 	public:
-		Preview() = delete;
-		~Preview() = delete;
-		static bool Show(sf::RenderWindow& wnd);
+		Preview(VOID) = delete;
+		~Preview(VOID) = delete;
+		static BOOL Show(_In_ sf::RenderWindow& wnd);
 	};
 }

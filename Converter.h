@@ -34,12 +34,12 @@ public:
 		return str;
 	}
 
-	static std::wstring ToUnicodeStr(const std::string& str)
+	static std::wstring ToUnicodeStr(_In_ const std::string& str)
 	{
 		return std::wstring(Converter::ToUnicode(str.c_str()));
 	}
 
-	static std::string ToASCIIStr(const std::wstring& wstr)
+	static std::string ToASCIIStr(_In_ const std::wstring& wstr)
 	{
 		return std::string(Converter::ToASCIIStr(wstr.c_str()));
 	}

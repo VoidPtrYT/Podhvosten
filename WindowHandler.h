@@ -1,15 +1,16 @@
 #pragma once
+#include <string>
+#include <SFML/Graphics.hpp>
 #include "GlobalHeader.h"
 #include "TextProvider.h"
 #include "Preview.h"
 #include "History.h"
 #include "Logo.h"
 #include "MainMenu.h"
-#include <SFML/Graphics.hpp>
-#include <string>
 
-#define PATH_TO_ICON L"..//src//ui.dat"
 #define ID_ICON 0
+#define ID_TITLE 0
+#define ERROR_LOAD_ICO L"Error of load icon game!"
 
 namespace Graphics
 {
@@ -19,21 +20,21 @@ namespace Graphics
 		std::wstring title;
 		sf::RenderWindow wnd;
 		sf::Image ico;
-		bool isFullScreen = false;
-		WindowHandler();
+		BOOL isFullScreen = FALSE;
+		WindowHandler(VOID);
 		static WindowHandler* instance;
 	public:
-		~WindowHandler();
-		static WindowHandler* getInstance(void)
+		~WindowHandler(VOID);
+		static WindowHandler* getInstance(VOID)
 		{
 			if (WindowHandler::instance == nullptr)
 				WindowHandler::instance = new WindowHandler();
 			return WindowHandler::instance;
 		}
 
-		void Start(void);
-		void ReOpenWindow(void);
-		void ChangeFullScreenState(void);
-		void ChangeStyle(void);
+		VOID Start(VOID);
+		VOID ReOpenWindow(VOID);
+		VOID ChangeFullScreenState(VOID);
+		VOID ChangeStyle(VOID);
 	};
 }

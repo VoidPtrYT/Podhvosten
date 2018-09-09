@@ -3,20 +3,47 @@
 namespace Scenes
 {
 
-	void Logo::Show(sf::RenderWindow& wnd)
+	VOID Logo::Show(_In_ sf::RenderWindow& wnd)
 	{
 		sf::Font font;
 		if (!font.loadFromFile(PATH_FONT))
-			MessageBox(NULL, L"Error of load font! Try reinstall game!",
+			MessageBox(NULL, ERROR_LOAD_BASE_FONT,
 				NULL, MB_ICONERROR);
 		wnd.clear();
 		wnd.display();
 
+		LPWSTR pathW = GetTmpFilePathW();
+		LPSTR pathA = GetTmpFilePathA();
+
+		sf::SoundBuffer sb;
+		if (GetFileById(PATH_EFFECTS, pathW, 2))
+		{
+			sb.loadFromFile(pathA);
+			DeleteFile(pathW);
+		}
+		else
+			MessageBox(NULL, ERROR_LOAD_MUSIC,
+				NULL, MB_ICONERROR);
+
 		sf::Sound snd;
-		snd.setBuffer(Container::getInstance()->getSoundEffectByID(2));
+		snd.setBuffer(sb);
 		snd.play();
+
+		sf::Texture texture;
+		if (GetFileById(PATH_UI, pathW, 1))
+		{
+			texture.loadFromFile(pathA);
+			DeleteFile(pathW);
+		}
+		else
+			MessageBox(NULL, ERROR_LOAD_UI,
+				NULL, MB_ICONERROR);
+
+		free(pathA);
+		free(pathW);
+
 		sf::Sprite sprite;
-		sprite.setTexture(Container::getInstance()->getUIbyID(1));
+		sprite.setTexture(texture);
 		sprite.setPosition(POS_SPRITE);
 		wnd.draw(sprite);
 		wnd.display();

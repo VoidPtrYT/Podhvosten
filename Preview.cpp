@@ -2,13 +2,13 @@
 
 namespace Scenes
 {
-	bool Preview::Show(sf::RenderWindow& wnd)
+	BOOL Preview::Show(_In_ sf::RenderWindow& wnd)
 	{
 		sf::Font font;
 		if (!font.loadFromFile(PATH_FONT))
 		{
-			MessageBox(NULL, L"Can't load base font. Try reinstall game!", NULL, MB_ICONERROR);
-			return false;
+			MessageBox(NULL, ERROR_LOAD_BASE_FONT, NULL, MB_ICONERROR);
+			return FALSE;
 		}
 
 		sf::RectangleShape externalRect;
@@ -30,13 +30,9 @@ namespace Scenes
 		textDisplay.setFont(font);
 		textDisplay.setCharacterSize(SIZE_FONT);
 
-		MSG msg = { 0 };
-
-		while (GetMessage(&msg, NULL, 0, 0) &&
-			wnd.isOpen())
+		while (TRUE)
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			sf::sleep(sf::microseconds(SLEEP_TIME));
 
 			sf::Event event;
 			while (wnd.pollEvent(event))
@@ -44,7 +40,7 @@ namespace Scenes
 				if (event.type == sf::Event::Closed)
 				{
 					wnd.close();
-					return false;
+					return FALSE;
 				}
 				if (event.type == sf::Event::KeyPressed)
 				{
@@ -52,7 +48,7 @@ namespace Scenes
 						Graphics::WindowHandler::getInstance()->ChangeStyle();
 					if (event.key.code == ENTER ||
 						event.key.code == ENTER_ALT)
-						return true;
+						return TRUE;
 				}
 			}
 			wnd.clear();
@@ -60,16 +56,15 @@ namespace Scenes
 			wnd.draw(externalRect);
 			wnd.draw(internalRect);
 
-			for (std::size_t i = 0; i < CNT_STR; ++i)
+			for (DWORD i = 0; i < CNT_STR; ++i)
 			{
 				textDisplay.setPosition(START_POS_TEXT_X,
-					(float)START_POS_TEXT_Y + i * MARGIN_STR);
+					(FLOAT)START_POS_TEXT_Y + i * MARGIN_STR);
 				textDisplay.setString(Scenes::text[i]);
 				wnd.draw(textDisplay);
 			}
 
 			wnd.display();
 		}
-		return true;
 	}
 }

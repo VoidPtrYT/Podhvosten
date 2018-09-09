@@ -1,5 +1,7 @@
 #pragma once
 #include <Windows.h>
+#include <malloc.h>
+#include <string.h>
 #include "DllProvider.h"
 #include "Converter.h"
 
@@ -37,8 +39,37 @@
 #define PATH_UI L"..//src//ui.dat"
 #define PATH_FONT "../src/fonts/BaseFont.ttf"
 
+#define ERROR_LOAD_BASE_FONT L"Can't load base font. Try reinstal game!"
+#define ERROR_LOAD_SPRITE L"Can't load sprite! Try reinstal game!"
+#define ERROR_LOAD_EFFECT  L"Can't load sound effect! Try reinstal game!"
+#define ERROR_LOAD_MUSIC L"Can't load music! Try reinstal game!"
+#define ERROR_LOAD_UI L"Error of load UI element! Try reinstal game"
+
 #define ID_SPRITE_SOUL 5
 #define COLOR_BRAVERY sf::Color(255, 128, 0)
 
 #define AUTHOR_LOGO L"by VoidPtr"
 #define SOUL_SCALE 0.05f
+
+#define SIZE_TMP_PATH 260
+
+static LPSTR GetTmpFilePathA(VOID)
+{
+	LPSTR str = (LPSTR)calloc(SIZE_TMP_PATH + 1, sizeof(CHAR));
+	GetTempPathA(SIZE_TMP_PATH, str);
+	strcat_s(str, SIZE_TMP_PATH, TEMPORALY_FILE_A);
+	return str;
+}
+static LPWSTR GetTmpFilePathW(VOID)
+{
+	LPWSTR wstr = (LPWSTR)calloc(SIZE_TMP_PATH + 1, sizeof(WCHAR));
+	GetTempPathW(SIZE_TMP_PATH + 1, wstr);
+	wcscat_s(wstr, SIZE_TMP_PATH, TEMPORALY_FILE_W);
+	return wstr;
+}
+
+#ifdef UNICODE
+#define GetTmpPath GetTmpFilePathW
+#else
+#define GetTmpPath GetTmpFilePathA
+#endif

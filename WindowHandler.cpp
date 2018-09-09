@@ -2,33 +2,39 @@
 
 namespace Graphics
 {
-	WindowHandler::WindowHandler()
+	WindowHandler::WindowHandler(VOID)
 	{
-		this->title.append(Text::TextProvider::getInstance()->getStrById(0));
+		this->title.append(Text::TextProvider::getInstance()->
+						getStrById(ID_TITLE));
 		this->title.append(VERSION);
 		this->wnd.setTitle(this->title);
 
-		LPWSTR strPath = new WCHAR[SIZE_STR + 1];
-		GetTempPath(SIZE_STR, strPath);
-		std::wstring wsPathTemp(strPath);
-		delete[] strPath;
-		wsPathTemp.append(TEMPORALY_FILE_W);
-		if (GetFileById(PATH_TO_ICON, &wsPathTemp[0], ID_ICON))
+		LPWSTR pathW = GetTmpFilePathW();
+		LPSTR pathA = GetTmpFilePathA();
+
+		if (GetFileById(PATH_UI, pathW, ID_ICON))
 		{			
-			this->ico.loadFromFile(Converter::ToASCII(wsPathTemp.c_str()));
-			DeleteFile(wsPathTemp.c_str());
-			wsPathTemp.clear();
+			if (!this->ico.loadFromFile(pathA))
+				MessageBox(NULL, ERROR_LOAD_ICO,
+					NULL, MB_ICONERROR);
+			DeleteFile(pathW);
 		}
+
 		this->ReOpenWindow();
+		free(pathW);
+		free(pathA);
 	}
 
-
-	WindowHandler::~WindowHandler()
+	WindowHandler::~WindowHandler(VOID)
 	{
+		this->title.clear();
 		this->wnd.~RenderWindow();
+		this->ico.~Image();
+		free(WindowHandler::instance);
+		WindowHandler::instance = NULL;
 	}
 
-	void WindowHandler::Start(void)
+	VOID WindowHandler::Start(VOID)
 	{
 		if (!Scenes::Preview::Show(this->wnd))
 			return;
@@ -40,29 +46,27 @@ namespace Graphics
 		DWORD iSelectMenu = menu.ShowMainWnd(this->wnd);
 	}
 
-	void WindowHandler::ReOpenWindow(void)
+	VOID WindowHandler::ReOpenWindow(VOID)
 	{
 		if (this->isFullScreen)
-			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Fullscreen);
+			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), 
+				this->title, sf::Style::Fullscreen);
 		else
-			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Close);
+			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), 
+				this->title, sf::Style::Close);
 		this->wnd.setIcon(this->ico.getSize().x, 
 			this->ico.getSize().y, this->ico.getPixelsPtr());
 	}
-	void WindowHandler::ChangeFullScreenState(void)
+
+	VOID WindowHandler::ChangeFullScreenState(VOID)
 	{
 		this->isFullScreen = !this->isFullScreen;
 	}
-	void WindowHandler::ChangeStyle(void)
+
+	VOID WindowHandler::ChangeStyle(VOID)
 	{
 		this->wnd.close();
-		isFullScreen = !isFullScreen;
-		if (isFullScreen)
-		{
-			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Fullscreen);
-		}
-		else
-			this->wnd.create(sf::VideoMode(WND_WIDTH, WND_HEIGHT), this->title, sf::Style::Close);
-		this->wnd.setIcon(this->ico.getSize().x, this->ico.getSize().y, this->ico.getPixelsPtr());
+		this->ChangeFullScreenState();
+		this->ReOpenWindow();
 	}
 }
