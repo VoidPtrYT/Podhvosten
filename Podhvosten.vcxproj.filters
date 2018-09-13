@@ -22,6 +22,9 @@
     <Filter Include="Graphics\Scenes">
       <UniqueIdentifier>{30714bd8-9dae-41cb-ac60-36d5545cfcc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files">
+      <UniqueIdentifier>{b6b3330b-369a-46c7-912c-24811fe964f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp">
@@ -76,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>Graphics\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="FileTests.h">
+      <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileEngine.h">
+      <Filter>Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

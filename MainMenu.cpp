@@ -7,10 +7,19 @@ namespace Scenes
 	{
 		if (!this->baseFont.loadFromFile(PATH_FONT))
 			MessageBox(NULL, ERROR_LOAD_BASE_FONT, NULL, MB_ICONERROR);
-		sf::Texture texture;
 
 		LPSTR pathA = GetTmpFilePathA();
 		LPWSTR pathW = GetTmpFilePathW();
+
+		if (GetFileById(PATH_MUSIC, pathW, 1))
+		{
+			this->sb.loadFromFile(pathA);
+			DeleteFile(pathW);
+			this->sound.setBuffer(this->sb);
+			this->sound.setLoop(TRUE);
+		}
+		else
+			MessageBox(NULL, ERROR_LOAD_MUSIC, NULL, MB_ICONERROR);
 	}
 
 
@@ -77,6 +86,7 @@ namespace Scenes
 		text.setCharacterSize(CHARTER_SIZE);
 
 		DWORD idMenu = 0;
+		this->StartMusic();
 
 		while (true)
 		{
@@ -142,5 +152,16 @@ namespace Scenes
 		}
 	}
 
-
+	VOID MainMenu::StartMusic(VOID)
+	{
+		this->sound.play();
+	}
+	VOID MainMenu::PauseMusic(VOID)
+	{
+		this->sound.pause();
+	}
+	VOID MainMenu::StopMusic(VOID)
+	{
+		this->sound.stop();
+	}
 }

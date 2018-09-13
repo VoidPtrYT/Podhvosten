@@ -95,6 +95,10 @@ namespace Scenes
 						return TRUE;
 				}
 			}
+
+			if (iIndexStr >= CNT_STR_HISTORY)
+				continue;
+
 			wnd.clear();
 
 			if (iCurrIndexStr == wstrCurr.size() - 1)

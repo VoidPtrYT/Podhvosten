@@ -13,17 +13,24 @@
 #define BAS_POS_TEXT_Y 200.f
 #define MARGIN_TEXT 60.f
 
+#define NEW_GAME_ID 1
+
 namespace Scenes
 {
 	class MainMenu
 	{
 		sf::Font baseFont;
 		sf::Sprite spriteSoul;
+		sf::SoundBuffer sb;
+		sf::Sound sound;
 	public:
 		const DWORD EXIT_CODE = 0;
 		MainMenu(VOID);
 		~MainMenu(VOID);
 
 		DWORD ShowMainWnd(_In_ sf::RenderWindow& wnd);
+		VOID StartMusic(VOID);
+		VOID PauseMusic(VOID);
+		VOID StopMusic(VOID);
 	};
 }

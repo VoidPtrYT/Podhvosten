@@ -255,6 +255,8 @@
   <ItemGroup>
     <ClInclude Include="Converter.h" />
     <ClInclude Include="DllProvider.h" />
+    <ClInclude Include="FileEngine.h" />
+    <ClInclude Include="FileTests.h" />
     <ClInclude Include="GlobalHeader.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="Logo.h" />
