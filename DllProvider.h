@@ -45,10 +45,10 @@ static BOOL(*GetTextureSprites)(
 		_In_ DWORD id))GetProcAddress(Protected::hDLL, "GetTextureSprites");
 static BOOL(*GetSprite)(
 	_Out_ sf::Texture* buffer,
-	_Out_ sf::Sprite* sound,
+	_Out_ sf::Sprite* sprite,
 	_In_ DWORD id) =
 	(BOOL(*)(_Out_ sf::Texture* buffer,
-		_Out_ sf::Sprite* sound,
+		_Out_ sf::Sprite* sprite,
 		_In_ DWORD id))GetProcAddress(Protected::hDLL, "GetSprite");
 
 static BOOL(*GetMusic)(

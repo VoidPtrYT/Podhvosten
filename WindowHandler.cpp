@@ -53,16 +53,18 @@ namespace Graphics
 		delete logo;
 		logo = nullptr;
 
-		Scenes::MainMenu menu;
-		DWORD iSelectMenu = menu.ShowMainWnd(this->wnd);
+		Scenes::MainMenu* menu = new Scenes::MainMenu();
+		DWORD iSelectMenu = menu->ShowMainWnd(this->wnd);
 
 
-		while (TRUE)
-		{
-			sf::sleep(sf::microseconds(SLEEP_TIME));
-			wnd.clear();
-			wnd.display();
-		}
+		//while (TRUE)
+		//{
+		//	sf::sleep(sf::microseconds(SLEEP_TIME));
+		//	wnd.clear();
+		//	wnd.display();
+		//}
+		delete menu;
+		menu = nullptr;
 	}
 
 	VOID WindowHandler::ReOpenWindow(VOID)

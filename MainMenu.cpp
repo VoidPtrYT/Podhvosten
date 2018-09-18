@@ -5,89 +5,101 @@ namespace Scenes
 
 	MainMenu::MainMenu(VOID)
 	{
-		if (!this->baseFont.loadFromFile(PATH_FONT))
+		this->baseFont = new sf::Font();
+
+		if (!this->baseFont->loadFromFile(PATH_FONT))
 			MessageBox(NULL, ERROR_LOAD_BASE_FONT, NULL, MB_ICONERROR);
 
-		LPSTR pathA = GetTmpFilePathA();
-		LPWSTR pathW = GetTmpFilePathW();
-
-		if (GetFileById(PATH_MUSIC, pathW, 1))
-		{
-			this->sb.loadFromFile(pathA);
-			DeleteFile(pathW);
-			this->sound.setBuffer(this->sb);
-			this->sound.setLoop(TRUE);
-		}
-		else
+		this->sb = new sf::SoundBuffer();
+		this->sound = new sf::Sound();
+		if(!GetMusicSound(this->sb, this->sound, MUSIC_MAINMENU_ID))
 			MessageBox(NULL, ERROR_LOAD_MUSIC, NULL, MB_ICONERROR);
+
+		this->textureSoul = new sf::Texture();
+		this->spriteSoul = new sf::Sprite();
+		if (!GetSprite(this->textureSoul, this->spriteSoul, SPRITE_SOUL_ID))
+			MessageBox(NULL, ERROR_LOAD_SPRITE,
+				NULL, MB_ICONERROR);
+		this->spriteSoul->setColor(COLOR_BRAVERY);
+		this->spriteSoul->setScale(SOUL_SCALE, SOUL_SCALE);
+
+		this->textureLogo = new sf::Texture();
+		this->spriteLogo = new sf::Sprite();
+		if(!GetUISprite(this->textureLogo, this->spriteLogo, LOGO_UI_ID))
+			MessageBox(NULL, ERROR_LOAD_UI,
+				NULL, MB_ICONERROR);
+		this->spriteLogo->setPosition(POS_LOGO_SPRITE);
+
+		this->sbClick = new sf::SoundBuffer();
+		this->clickEvent = new sf::Sound();
+		if(!GetSoundEffectSound(this->sbClick, this->clickEvent, BASE_CLICK_ID))
+			MessageBox(NULL, ERROR_LOAD_SPRITE,
+				NULL, MB_ICONERROR);
+
+		this->text = new sf::Text();
+		this->text->setFont(*this->baseFont);
+		this->text->setCharacterSize(CHARTER_SIZE);
+
 	}
 
 
 	MainMenu::~MainMenu(VOID)
 	{
+		if (this->text != nullptr)
+		{
+			delete this->text;
+			this->text = nullptr;
+		}
+		if (this->baseFont != nullptr)
+		{
+			delete this->baseFont;
+			this->baseFont = nullptr;
+		}
+		if (this->textureSoul != nullptr)
+		{
+			delete this->textureSoul;
+			this->textureSoul = nullptr;
+		}
+		if (this->spriteSoul != nullptr)
+		{
+			delete this->spriteSoul;
+			this->spriteSoul = nullptr;
+		}
+		if (this->sb != nullptr)
+		{
+			delete this->sb;
+		}
+		if (this->sound != nullptr)
+		{
+			this->StopMusic();
+			delete this->sound;
+			this->sound = nullptr;
+		}
+		if (this->textureLogo != nullptr)
+		{
+			delete this->textureLogo;
+			this->textureLogo = nullptr;
+		}
+		if (this->spriteLogo != nullptr)
+		{
+			delete this->spriteLogo;
+			this->spriteLogo = nullptr;
+		}
+		if (this->sbClick != nullptr)
+		{
+			delete this->sbClick;
+			this->sbClick = nullptr;
+		}		
+		if (this->clickEvent != nullptr)
+		{
+			delete this->clickEvent;
+			this->clickEvent = nullptr;
+		}
 	}
 
 	DWORD MainMenu::ShowMainWnd(_In_ sf::RenderWindow& wnd)
 	{
-		sf::Texture texture;
-
-		LPSTR pathA = GetTmpFilePathA();
-		LPWSTR pathW = GetTmpFilePathW();
-
-		if (GetFileById(PATH_UI, pathW, 1))
-		{
-			texture.loadFromFile(pathA);
-			DeleteFile(pathW);
-		}
-		else
-			MessageBox(NULL, ERROR_LOAD_UI,
-				NULL, MB_ICONERROR);
-
-		sf::Sprite logo;
-		logo.setTexture(texture);
-		logo.setPosition(POS_LOGO_SPRITE);
-
-		sf::SoundBuffer sb;
-
-		if (GetFileById(PATH_EFFECTS, pathW, 0))
-		{
-			sb.loadFromFile(pathA);
-			DeleteFile(pathW);
-		}
-		else
-			MessageBox(NULL, ERROR_LOAD_SPRITE,
-				NULL, MB_ICONERROR);
-
-		sf::Texture textureSoul;
-
-		if (GetFileById(PATH_SPRITES, pathW, 5))
-		{
-			textureSoul.loadFromFile(pathA);
-			DeleteFile(pathW);
-		}
-		else
-			MessageBox(NULL, ERROR_LOAD_SPRITE,
-				NULL, MB_ICONERROR);
-
-		this->spriteSoul.setTexture(textureSoul);
-		this->spriteSoul.setColor(COLOR_BRAVERY);
-
-		free(pathA);
-		free(pathW);
-
-
-		sf::Sound snd;
-		snd.setBuffer(sb);
-
-		this->spriteSoul.setScale(SOUL_SCALE, SOUL_SCALE);
-
-		sf::Text text;
-		text.setFont(this->baseFont);
-		text.setCharacterSize(CHARTER_SIZE);
-
-		DWORD idMenu = 0;
 		this->StartMusic();
-
 		while (true)
 		{
 			sf::sleep(sf::microseconds(SLEEP_TIME));
@@ -106,49 +118,49 @@ namespace Scenes
 					if (event.key.code == ENTER ||
 						event.key.code == ENTER_ALT)
 					{
-						if (idMenu == CNT_STR_MAIN_MENU - 1)
+						if (this->id == CNT_STR_MAIN_MENU - 1)
 							return EXIT_CODE;
-						return idMenu + 1;
+						return this->id + 1;
 					}
 					if (event.key.code == MOVE_UP ||
 						event.key.code == MOVE_UP_ALT)
 					{
-						snd.play();
-						if (idMenu == 0)
-							idMenu = CNT_STR_MAIN_MENU;
-						--idMenu;
+						this->clickEvent->play();
+						if (this->id == 0)
+							this->id = CNT_STR_MAIN_MENU;
+						--this->id;
 					}
 					if (event.key.code == MOVE_DOWN ||
 						event.key.code == MOVE_DOWN_ALT)
 					{
-						snd.play();
-						if (idMenu == CNT_STR_MAIN_MENU - 1)
-							idMenu = -1;
-						++idMenu;
+						this->clickEvent->play();
+						if (this->id == CNT_STR_MAIN_MENU - 1)
+							this->id = -1;
+						++this->id;
 					}
 				}
 			}
 
 			wnd.clear();
-			wnd.draw(logo);
+			wnd.draw(*this->spriteLogo);
 
 			for (size_t i = 0; i < CNT_STR_MAIN_MENU; ++i)
 			{
-				text.setString(Text::TextProvider::getInstance()
+				this->text->setString(Text::TextProvider::getInstance()
 					->getStrById(START_INDEX_STR + i));
-				text.setPosition(POS_TEXT_X, BAS_POS_TEXT_Y + MARGIN_TEXT * i);
+				this->text->setPosition(POS_TEXT_X, BAS_POS_TEXT_Y + MARGIN_TEXT * i);
 
-				if (idMenu == i)
+				if (this->id == i)
 				{
-					text.setFillColor(COLOR_BRAVERY);
-					this->spriteSoul.setPosition(POS_SOUL_X, 
+					this->text->setFillColor(COLOR_BRAVERY);
+					this->spriteSoul->setPosition(POS_SOUL_X, 
 						BAS_POS_TEXT_Y + MARGIN_TEXT * i);
-					wnd.draw(this->spriteSoul);
+					wnd.draw(*this->spriteSoul);
 				}
 				else
-					text.setFillColor(sf::Color::White);
+					this->text->setFillColor(sf::Color::White);
 
-				wnd.draw(text);
+				wnd.draw(*this->text);
 
 			}
 
@@ -158,14 +170,14 @@ namespace Scenes
 
 	VOID MainMenu::StartMusic(VOID)
 	{
-		this->sound.play();
+		this->sound->play();
 	}
 	VOID MainMenu::PauseMusic(VOID)
 	{
-		this->sound.pause();
+		this->sound->pause();
 	}
 	VOID MainMenu::StopMusic(VOID)
 	{
-		this->sound.stop();
+		this->sound->stop();
 	}
 }
