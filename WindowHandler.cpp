@@ -48,11 +48,21 @@ namespace Graphics
 		delete hist;
 		hist = nullptr;
 
-
-		Scenes::Logo::Show(this->wnd);
+		Scenes::Logo* logo = new Scenes::Logo();
+		logo->Show(this->wnd);
+		delete logo;
+		logo = nullptr;
 
 		Scenes::MainMenu menu;
 		DWORD iSelectMenu = menu.ShowMainWnd(this->wnd);
+
+
+		while (TRUE)
+		{
+			sf::sleep(sf::microseconds(SLEEP_TIME));
+			wnd.clear();
+			wnd.display();
+		}
 	}
 
 	VOID WindowHandler::ReOpenWindow(VOID)

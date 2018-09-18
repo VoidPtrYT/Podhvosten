@@ -2,62 +2,82 @@
 
 namespace Scenes
 {
+	Logo::Logo(VOID)
+	{
+		this->font = new sf::Font();
+		if (!this->font->loadFromFile(PATH_FONT))
+			MessageBox(NULL, ERROR_LOAD_BASE_FONT,
+				NULL, MB_ICONERROR);
+		this->buffer = new sf::SoundBuffer();
+		this->snd = new sf::Sound();
+
+		if(!GetSoundEffectSound(this->buffer, this->snd, EFFECT_PODHVOSTEN_ID))
+			MessageBox(NULL, ERROR_LOAD_EFFECT,
+				NULL, MB_ICONERROR);
+
+		this->texLogo = new sf::Texture();
+		this->spriteLogo = new sf::Sprite();
+		if(!GetUISprite(this->texLogo, this->spriteLogo, LOGO_UI_ID))
+			MessageBox(NULL, ERROR_LOAD_UI,
+				NULL, MB_ICONERROR);
+		this->spriteLogo->setPosition(POS_SPRITE);
+
+		this->text = new sf::Text();
+		this->text->setFillColor(sf::Color::White);
+		this->text->setFont(*this->font);
+		this->text->setCharacterSize(CHARTER_LOGO_SIZE);
+		this->text->setString(AUTHOR_LOGO);
+		this->text->setPosition(POS_TEXT);
+	}
+
+	Logo::~Logo(VOID)
+	{
+		if (this->font != nullptr)
+		{
+			delete this->font;
+			this->font = nullptr;
+		}
+		if (this->snd != nullptr)
+		{
+			delete this->snd;
+			this->snd = nullptr;
+		}
+		if (this->buffer != nullptr)
+		{
+			delete this->buffer;
+			this->buffer = nullptr;
+		}
+		if (this->spriteLogo != nullptr)
+		{
+			delete this->spriteLogo;
+			this->spriteLogo = nullptr;
+		}
+		if (this->texLogo != nullptr)
+		{
+			delete this->texLogo;
+			this->texLogo = nullptr;
+		}
+		if (this->text != nullptr)
+		{
+			delete this->text;
+			this->text = nullptr;
+		}
+	}
 
 	VOID Logo::Show(_In_ sf::RenderWindow& wnd)
 	{
-		sf::Font font;
-		if (!font.loadFromFile(PATH_FONT))
-			MessageBox(NULL, ERROR_LOAD_BASE_FONT,
-				NULL, MB_ICONERROR);
 		wnd.clear();
 		wnd.display();
 
-		LPWSTR pathW = GetTmpFilePathW();
-		LPSTR pathA = GetTmpFilePathA();
+		this->snd->play();
 
-		sf::SoundBuffer sb;
-		if (GetFileById(PATH_EFFECTS, pathW, 2))
-		{
-			sb.loadFromFile(pathA);
-			DeleteFile(pathW);
-		}
-		else
-			MessageBox(NULL, ERROR_LOAD_MUSIC,
-				NULL, MB_ICONERROR);
-
-		sf::Sound snd;
-		snd.setBuffer(sb);
-		snd.play();
-
-		sf::Texture texture;
-		if (GetFileById(PATH_UI, pathW, 1))
-		{
-			texture.loadFromFile(pathA);
-			DeleteFile(pathW);
-		}
-		else
-			MessageBox(NULL, ERROR_LOAD_UI,
-				NULL, MB_ICONERROR);
-
-		free(pathA);
-		free(pathW);
-
-		sf::Sprite sprite;
-		sprite.setTexture(texture);
-		sprite.setPosition(POS_SPRITE);
-		wnd.draw(sprite);
+		wnd.draw(*this->spriteLogo);
 		wnd.display();
 		sf::sleep(sf::microseconds(SLEEP_LOGO));
 
-		sf::Text text;
-		text.setFillColor(sf::Color::White);
-		text.setFont(font);
-		text.setCharacterSize(CHARTER_LOGO_SIZE);
-		text.setString(AUTHOR_LOGO);
-		text.setPosition(POS_TEXT);
-		snd.play();
-		wnd.draw(sprite);
-		wnd.draw(text);
+		this->snd->play();
+		wnd.draw(*this->spriteLogo);
+		wnd.draw(*this->text);
 		wnd.display();
 
 		sf::sleep(sf::microseconds(SLEEP_LOGO));
