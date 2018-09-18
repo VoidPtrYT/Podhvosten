@@ -25,6 +25,9 @@
     <Filter Include="Files">
       <UniqueIdentifier>{b6b3330b-369a-46c7-912c-24811fe964f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{daf40314-bd22-493f-b2df-d97faa51cfc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
       <Filter>Graphics\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="FileEngine.h">
       <Filter>Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,8 @@
 
 #include "FileTests.h"
 
+#include <stdio.h>
+
 #define ERROR_MKDIR L"Error of making directory with saves of game!"
 
 Text::TextProvider* Text::TextProvider::instance = nullptr;
@@ -26,6 +28,5 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 	}
 
 	Graphics::WindowHandler::getInstance()->Start();
-
 	return 0;
 }

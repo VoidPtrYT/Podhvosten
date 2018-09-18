@@ -2,73 +2,104 @@
 
 namespace Scenes
 {
-	BOOL History::Show(sf::RenderWindow & wnd)
+	History::History(VOID)
 	{
-		sf::Texture* images = new sf::Texture[CNT_IMAGES];
-		sf::SoundBuffer* samples = new sf::SoundBuffer[CNT_AUDIO];
-		sf::SoundBuffer music;
-		sf::Font font;
-		if (!font.loadFromFile(PATH_FONT))
+		this->font = new sf::Font();
+		if(!this->font->loadFromFile(PATH_FONT))
 			MessageBox(NULL, ERROR_LOAD_BASE_FONT, NULL, MB_ICONERROR);
 
-		LPSTR pathA = GetTmpFilePathA();
-		LPWSTR pathW = GetTmpFilePathW();
-
+		this->images = new sf::Texture[CNT_IMAGES];
 		for (DWORD i = 0; i < CNT_IMAGES; ++i)
-		{
-			if (GetFileById(PATH_SPRITES, pathW, i))
-			{
-				images[i].loadFromFile(pathA);
-				DeleteFile(pathW);
-			}
-			else
+			if (!GetTextureSprites(&this->images[i], i))
 				MessageBox(NULL, ERROR_LOAD_SPRITE, NULL, MB_ICONERROR);
-		}
+
+		this->samples = new sf::SoundBuffer[CNT_AUDIO];
 		for (std::size_t i = 0; i < CNT_AUDIO; ++i)
-		{
-			if (GetFileById(PATH_EFFECTS, pathW, i))
-			{
-				samples[i].loadFromFile(pathA);
-				DeleteFile(pathW);
-			}
-			else
+			if (!GetSoundEffect(&(samples[i]), i))
 				MessageBox(NULL, ERROR_LOAD_EFFECT, NULL, MB_ICONERROR);
-		}
-		if (GetFileById(PATH_MUSIC, pathW, 0))
-		{
-			music.loadFromFile(pathA);
-			DeleteFile(pathW);
-		}
-		else
+
+		this->music = new sf::SoundBuffer();
+		if (!GetMusic(this->music, 0))
 			MessageBox(NULL, ERROR_LOAD_MUSIC, NULL, MB_ICONERROR);
 
-		free(pathA);
-		free(pathW);
+		this->background = new sf::Sound();
+		this->background->setBuffer(*this->music);
+		this->background->setLoop(TRUE);
+		this->background->play();
 
-		sf::Sound background;
-		background.setBuffer(music);
-		background.setLoop(TRUE);
-		background.play();
-		sf::Sound click;
+		this->click = new sf::Sound();
+		this->wstrCurr = Text::TextProvider::getInstance()->getStrById(START_STR_INDEX);
+
+		this->text = new sf::Text();
+		this->text->setFillColor(sf::Color::White);
+		this->text->setFont(*this->font);
+		this->text->setCharacterSize(SIZE_FONT_HISTORY);
+		this->text->setPosition(START_POS_TEXT_X_HISTORY, START_POS_TEXT_Y_HISTORY);
+
+		this->spriteHistory = new sf::Sprite();
+		this->spriteHistory->setTexture(this->images[0]);
+		this->spriteHistory->setPosition(POSITION_HISTORY_SPRITE);
+		this->spriteHistory->setScale(SIZE_HISTORY_SPRITE);
+	}
+
+	History::~History(VOID)
+	{
+		if (this->background != nullptr)
+		{
+			this->background->stop();
+			delete this->background;
+			this->background = nullptr;
+		}
+		if (this->click != nullptr)
+		{
+			delete this->click;
+			this->click = nullptr;
+		}
+
+		if (this->font != nullptr)
+		{
+			delete this->font;
+			this->font = nullptr;
+		}
+		if (this->images != nullptr)
+		{
+			for (DWORD i = 0; i < CNT_IMAGES; ++i)
+				this->images[i].~Texture();
+			this->images = nullptr;
+		}
+		if (this->samples != nullptr)
+		{
+			for (DWORD i = 0; i < CNT_AUDIO; ++i)
+				this->samples[i].~SoundBuffer();
+			this->samples = nullptr;
+		}
+		if (this->music != nullptr)
+		{
+			delete this->music;
+			this->music = nullptr;
+		}
+		this->wstrCurr.clear();
+
+		if (this->text != nullptr)
+		{
+			delete this->text;
+			this->text = nullptr;
+		}
+
+		if (this->spriteHistory != nullptr)
+		{
+			delete this->spriteHistory;
+			this->spriteHistory = nullptr;
+		}
+	}
+
+	BOOL History::Show(sf::RenderWindow & wnd)
+	{
 
 		DWORD iIndexStr = 0;
 		DWORD iCurrIndexStr = 0;
-		std::wstring wstrCurr = Text::TextProvider::getInstance()->getStrById(START_STR_INDEX);
 		FLOAT fTimeNextChar = BASE_SPEED_TEXT;
-
-		sf::Text text;
-		text.setFillColor(sf::Color::White);
-		text.setFont(font);
-		text.setCharacterSize(SIZE_FONT_HISTORY);
-		text.setPosition(START_POS_TEXT_X_HISTORY, START_POS_TEXT_Y_HISTORY);
-
-		sf::Sprite spriteHistory;
-
-		spriteHistory.setTexture(images[0]);
-		spriteHistory.setPosition(POSITION_HISTORY_SPRITE);
-		spriteHistory.setScale(SIZE_HISTORY_SPRITE);
 		sf::Clock clock;
-
 
 		while (TRUE)
 		{
@@ -79,10 +110,6 @@ namespace Scenes
 			{
 				if (event.type == sf::Event::Closed)
 				{
-					if (images != nullptr)
-						delete[] images;
-					if (samples != nullptr)
-						delete[] samples;
 					wnd.close();
 					return FALSE;
 				}
@@ -92,7 +119,10 @@ namespace Scenes
 						Graphics::WindowHandler::getInstance()->ChangeStyle();
 					if (event.key.code == ENTER ||
 						event.key.code == ENTER_ALT)
+					{
+						wnd.clear();
 						return TRUE;
+					}
 				}
 			}
 
@@ -115,13 +145,13 @@ namespace Scenes
 					iCurrIndexStr = 0;
 					++iIndexStr;
 					if(iIndexStr == 1)
-						spriteHistory.setTexture(images[1]);
+						this->spriteHistory->setTexture(images[1]);
 					if (iIndexStr == 2)
-						spriteHistory.setTexture(images[2]);
+						this->spriteHistory->setTexture(images[2]);
 					if (iIndexStr == 3)
-						spriteHistory.setTexture(images[3]);
+						this->spriteHistory->setTexture(images[3]);
 					if(iIndexStr == (CNT_STR_HISTORY - 1))
-						spriteHistory.setTexture(images[4]);
+						this->spriteHistory->setTexture(images[4]);
 				}
 				++iCurrIndexStr;
 				if (iIndexStr == CNT_STR_HISTORY)
@@ -130,16 +160,16 @@ namespace Scenes
 					wstrCurr = Text::TextProvider::getInstance()->
 						getStrById(START_STR_INDEX + iIndexStr);
 
-				text.setString(wstrCurr.substr(0, iCurrIndexStr));
+				this->text->setString(wstrCurr.substr(0, iCurrIndexStr));
 				if (iCurrIndexStr % FREQUENCY_TICK_HISTORY == 0)
 				{
-					click.setBuffer(samples[rand() % CNT_AUDIO]);
-					click.play();
+					this->click->setBuffer(this->samples[rand() % CNT_AUDIO]);
+					this->click->play();
 				}
 			}
 
-			wnd.draw(spriteHistory);
-			wnd.draw(text);
+			wnd.draw(*this->spriteHistory);
+			wnd.draw(*this->text);
 			wnd.display();
 		}
 	}

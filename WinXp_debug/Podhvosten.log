@@ -1,4 +1,13 @@
-﻿  EntryPoint.cpp
+﻿  WindowHandler.cpp
+  TextProvider.cpp
+  Preview.cpp
+  MainMenu.cpp
+  Logo.cpp
+  History.cpp
+  EntryPoint.cpp
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\shlobj.h(1151): warning C4091: typedef : пропускается слева от "tagGPFIDL_FLAGS", когда ни одна переменная не объявлена
+  Character.cpp
+  Создание кода...
 C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1193,5): warning MSB8030: The linker switch "Minimum Required Version" requires "SubSystem" to be set.  Without "SubSystem", the "Minimum Required Version" would not be passed to linker and could prevent to the output binary from running on older Operating Systems.
   Podhvosten.vcxproj -> E:\project\Podhvosten\WinXp_debug\Podhvosten.exe
   Podhvosten.vcxproj -> E:\project\Podhvosten\WinXp_debug\Podhvosten.pdb (Partial PDB)

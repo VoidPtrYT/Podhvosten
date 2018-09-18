@@ -36,10 +36,19 @@ namespace Graphics
 
 	VOID WindowHandler::Start(VOID)
 	{
-		if (!Scenes::Preview::Show(this->wnd))
+		Scenes::Preview* prew = new Scenes::Preview();
+		if (!prew->Show(this->wnd))
 			return;
-		if (!Scenes::History::Show(this->wnd))
+		delete prew;
+		prew = nullptr;
+
+		Scenes::History* hist = new Scenes::History();
+		if (!hist->Show(this->wnd))
 			return;
+		delete hist;
+		hist = nullptr;
+
+
 		Scenes::Logo::Show(this->wnd);
 
 		Scenes::MainMenu menu;

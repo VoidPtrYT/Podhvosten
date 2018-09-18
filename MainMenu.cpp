@@ -97,7 +97,7 @@ namespace Scenes
 				if (event.type == sf::Event::Closed)
 				{
 					wnd.close();
-					return MainMenu::EXIT_CODE;
+					return EXIT_CODE;
 				}
 				if (event.type == sf::Event::KeyPressed)
 				{
@@ -105,7 +105,11 @@ namespace Scenes
 						Graphics::WindowHandler::getInstance()->ChangeStyle();
 					if (event.key.code == ENTER ||
 						event.key.code == ENTER_ALT)
-						return idMenu;
+					{
+						if (idMenu == CNT_STR_MAIN_MENU - 1)
+							return EXIT_CODE;
+						return idMenu + 1;
+					}
 					if (event.key.code == MOVE_UP ||
 						event.key.code == MOVE_UP_ALT)
 					{

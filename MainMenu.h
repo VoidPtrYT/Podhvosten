@@ -13,7 +13,13 @@
 #define BAS_POS_TEXT_Y 200.f
 #define MARGIN_TEXT 60.f
 
+#define EXIT_CODE 0
 #define NEW_GAME_ID 1
+#define CONTINUE_ID 2
+#define SPECIAL_BATLE 3
+#define MULTIPLAYER_ID 4
+#define CHANEL_AUTHOR_ID 5
+#define HELP_PROJECT_ID 6
 
 namespace Scenes
 {
@@ -24,7 +30,6 @@ namespace Scenes
 		sf::SoundBuffer sb;
 		sf::Sound sound;
 	public:
-		const DWORD EXIT_CODE = 0;
 		MainMenu(VOID);
 		~MainMenu(VOID);
 

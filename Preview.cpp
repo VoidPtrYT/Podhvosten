@@ -2,34 +2,50 @@
 
 namespace Scenes
 {
-	BOOL Preview::Show(_In_ sf::RenderWindow& wnd)
+	Preview::Preview(VOID)
 	{
-		sf::Font font;
-		if (!font.loadFromFile(PATH_FONT))
-		{
+		this->font = new sf::Font();
+		if (!this->font->loadFromFile(PATH_FONT))
 			MessageBox(NULL, ERROR_LOAD_BASE_FONT, NULL, MB_ICONERROR);
-			return FALSE;
-		}
 
-		sf::RectangleShape externalRect;
-		sf::RectangleShape internalRect;
-		externalRect.setFillColor(sf::Color::White);
-		externalRect.setPosition(EXT_RECT_POS, EXT_RECT_POS);
-		externalRect.setSize(
+		this->externalRect = new sf::RectangleShape();
+		this->externalRect->setFillColor(sf::Color::White);
+		this->externalRect->setPosition(EXT_RECT_POS, EXT_RECT_POS);
+		this->externalRect->setSize(
 			sf::Vector2f(WND_WIDTH - 2 * EXT_RECT_POS,
 				WND_HEIGHT - 2 * EXT_RECT_POS));
 
-		internalRect.setFillColor(sf::Color::Black);
-		internalRect.setPosition(INT_RECT_POS, INT_RECT_POS);
-		internalRect.setSize(
+		this->internalRect = new sf::RectangleShape();
+		this->internalRect->setFillColor(sf::Color::Black);
+		this->internalRect->setPosition(INT_RECT_POS, INT_RECT_POS);
+		this->internalRect->setSize(
 			sf::Vector2f(WND_WIDTH - 2 * INT_RECT_POS,
 				WND_HEIGHT - 2 * INT_RECT_POS));
 
-		sf::Text textDisplay;
-		textDisplay.setFillColor(sf::Color::White);
-		textDisplay.setFont(font);
-		textDisplay.setCharacterSize(SIZE_FONT);
+		this->textDisplay = new sf::Text();
+		this->textDisplay->setFillColor(sf::Color::White);
+		this->textDisplay->setFont(*this->font);
+		this->textDisplay->setCharacterSize(SIZE_FONT);
+	}
+	Preview::~Preview(VOID)
+	{
+		delete[] this->text;
+		this->text = nullptr;
 
+		delete this->font;
+		this->font = nullptr;
+
+		delete this->externalRect;
+		this->externalRect = nullptr;
+
+		delete this->internalRect;
+		this->internalRect = nullptr;
+
+		delete this->textDisplay;
+		this->textDisplay = nullptr;
+	}
+	BOOL Preview::Show(_In_ sf::RenderWindow& wnd)
+	{
 		while (TRUE)
 		{
 			sf::sleep(sf::microseconds(SLEEP_TIME));
@@ -53,15 +69,15 @@ namespace Scenes
 			}
 			wnd.clear();
 
-			wnd.draw(externalRect);
-			wnd.draw(internalRect);
+			wnd.draw(*this->externalRect);
+			wnd.draw(*this->internalRect);
 
 			for (DWORD i = 0; i < CNT_STR; ++i)
 			{
-				textDisplay.setPosition(START_POS_TEXT_X,
+				this->textDisplay->setPosition(START_POS_TEXT_X,
 					(FLOAT)START_POS_TEXT_Y + i * MARGIN_STR);
-				textDisplay.setString(Scenes::text[i]);
-				wnd.draw(textDisplay);
+				this->textDisplay->setString(this->text[i]);
+				wnd.draw(*this->textDisplay);
 			}
 
 			wnd.display();

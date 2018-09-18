@@ -24,9 +24,18 @@ namespace Scenes
 {
 	class History
 	{
+		sf::Font* font = nullptr;
+		sf::Texture* images = nullptr;
+		sf::SoundBuffer* samples = nullptr;
+		sf::SoundBuffer* music = nullptr;
+		sf::Sound* background = nullptr;
+		sf::Sound* click = nullptr;
+		std::wstring wstrCurr;
+		sf::Text* text = nullptr;
+		sf::Sprite* spriteHistory = nullptr;
 	public:
-		History(VOID) = delete;
-		~History(VOID) = delete;
-		static BOOL Show(_In_ sf::RenderWindow& wnd);
+		History(VOID);
+		~History(VOID);
+		BOOL Show(_In_ sf::RenderWindow& wnd);
 	};
 }
