@@ -250,10 +250,12 @@
     <ClCompile Include="Logo.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Preview.cpp" />
+    <ClCompile Include="SysMessage.cpp" />
     <ClCompile Include="TextProvider.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseMessage.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Converter.h" />
     <ClInclude Include="DllProvider.h" />
@@ -265,6 +267,7 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Preview.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SysMessage.h" />
     <ClInclude Include="TextProvider.h" />
     <ClInclude Include="WindowHandler.h" />
   </ItemGroup>

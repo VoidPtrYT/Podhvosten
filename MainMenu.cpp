@@ -163,7 +163,6 @@ namespace Scenes
 				wnd.draw(*this->text);
 
 			}
-
 			wnd.display();
 		}
 	}

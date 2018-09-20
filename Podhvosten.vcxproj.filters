@@ -28,6 +28,9 @@
     <Filter Include="Characters">
       <UniqueIdentifier>{daf40314-bd22-493f-b2df-d97faa51cfc5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Messages">
+      <UniqueIdentifier>{9b0bba3a-3ce1-4244-9a8c-2f85cde85c9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp">
@@ -53,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="SysMessage.cpp">
+      <Filter>Messages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="SysMessage.h">
+      <Filter>Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseMessage.h">
+      <Filter>Messages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

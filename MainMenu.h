@@ -2,6 +2,7 @@
 #include "GlobalHeader.h"
 #include "TextProvider.h"
 #include "WindowHandler.h"
+#include "SysMessage.h"
 
 #define MUSIC_MAINMENU_ID 1
 #define SPRITE_SOUL_ID 5
@@ -45,6 +46,7 @@ namespace Scenes
 		~MainMenu(VOID);
 
 		DWORD ShowMainWnd(_In_ sf::RenderWindow& wnd);
+
 		VOID StartMusic(VOID);
 		VOID PauseMusic(VOID);
 		VOID StopMusic(VOID);
